@@ -38,9 +38,6 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-# Volume para persistir sessão do WhatsApp Web entre deploys e reinicializações
-VOLUME ["/app/.wwebjs_auth"]
-
 EXPOSE 3000
 
 ENV PORT=3000
