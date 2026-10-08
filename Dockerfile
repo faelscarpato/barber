@@ -13,7 +13,8 @@ RUN npm install -g bun
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
-    NODE_ENV=production
+    NODE_ENV=production \
+    HOST=0.0.0.0
 
 WORKDIR /app
 
@@ -24,8 +25,8 @@ RUN bun install
 COPY . .
 RUN bun run build
 
-EXPOSE 3000
+EXPOSE 8080
 
-ENV PORT=3000
+ENV PORT=8080
 
 CMD ["node", ".output/server/index.mjs"]
