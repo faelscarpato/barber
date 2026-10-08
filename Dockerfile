@@ -1,23 +1,9 @@
-# Etapa 1: Base com dependências do Chromium para WhatsApp Web / Puppeteer
-FROM node:22-bullseye-slim AS base
+# Base moderna com Debian 12 (Bookworm) e Chromium para WhatsApp Web / Puppeteer
+FROM node:22-bookworm-slim AS base
 
 RUN apt-get update && apt-get install -y \
     chromium \
     fonts-liberation \
-    libasound2 \
-    libatk-bridge2.0-0 \
-    libatk1.0-0 \
-    libcairo2 \
-    libcups2 \
-    libdbus-1-3 \
-    libgbm1 \
-    libgtk-3-0 \
-    libnspr4 \
-    libnss3 \
-    libpango-1.0-0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxrandr2 \
     ca-certificates \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
@@ -31,7 +17,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /app
 
-# Etapa 2: Instalação de dependências e build
+# Instalação de dependências e build
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
